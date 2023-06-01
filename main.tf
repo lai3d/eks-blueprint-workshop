@@ -174,6 +174,7 @@ module "kubernetes_addons" {
   karpenter_enable_spot_termination_handling = true
   #karpenter_sqs_queue_arn                    = module.karpenter.queue_arn  
 
+  enable_kubecost                      = true
 }
 
 ################################################################################
