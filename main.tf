@@ -175,6 +175,13 @@ module "kubernetes_addons" {
   #karpenter_sqs_queue_arn                    = module.karpenter.queue_arn  
 
   enable_kubecost                      = true
+  enable_kube_prometheus_stack         = true
+  enable_amazon_eks_adot               = true
+  amazon_eks_adot_config = {
+    most_recent        = true
+    kubernetes_version = module.eks_blueprints.eks_cluster_version
+    resolve_conflicts  = "OVERWRITE"
+  }
 }
 
 ################################################################################
@@ -190,4 +197,16 @@ module "karpenter" {
   create_irsa            = false # IRSA will be created by the kubernetes-addons module
 
   tags = local.tags
+}
+
+module "adot_collector_irsa_addon" {
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.21.0/modules/irsa"
+
+  create_kubernetes_namespace       = true
+  create_kubernetes_service_account = true
+  kubernetes_namespace              = "aws-otel-eks"
+  kubernetes_service_account        = "aws-otel-collector"
+  irsa_iam_policies                 = ["arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess"]
+  eks_cluster_id                    = module.eks_blueprints.eks_cluster_id
+  eks_oidc_provider_arn             = module.eks_blueprints.eks_oidc_provider_arn
 }
