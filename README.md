@@ -5,3 +5,5 @@ Terraform is a powerful tool that helps in quickly testing the compatibility of 
 
 Terraform 是神器，能帮助快速测试某个组件，比如istio与consul能不能一起工作；
 再搭配上这个aws eks blueprints，简直太方便了！
+
+## [Amazon EKS Blueprints for Terraform](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.32.0/)
