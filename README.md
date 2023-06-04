@@ -1,1 +1,3 @@
-# my-workshop-for-eks-blueprint
+# eks-blueprint-workshop
+
+
